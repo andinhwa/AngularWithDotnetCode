@@ -15,7 +15,6 @@ export class AppSidebarComponent implements OnInit {
       $('[main-body]').toggleClass('sidebar-toggled');
       $('.sidebar').toggleClass('toggled');
       if ($('.sidebar').hasClass('toggled')) {
-        debugger;
         $('.sidebar .collapse').collapse('hide');
       }
   }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from '../../_services';
 
 @Component({
   selector: 'app-topbar',
@@ -6,11 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app-topbar.component.css']
 })
 export class AppTopbarComponent implements OnInit {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService
+  ) {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   sidebarToggled(): void {
     $('[main-body ]').toggleClass('sidebar-toggled');
@@ -18,5 +22,10 @@ export class AppTopbarComponent implements OnInit {
     if ($('.sidebar').hasClass('toggled')) {
       $('.sidebar .collapse').collapse('hide');
     }
-}
+  }
+
+  logOut(): void {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
+  }
 }
