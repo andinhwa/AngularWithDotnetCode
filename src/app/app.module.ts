@@ -21,6 +21,8 @@ import { AppAddonComponent } from './_addons/app-addon/app-addon.component';
 import { TableComponent } from './_addons/table/table.component';
 import {AlertComponent} from './_components';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 import * as $ from 'jquery';
 import * as bootstrap from 'bootstrap';
 import { from } from 'rxjs';
@@ -46,7 +48,8 @@ import { from } from 'rxjs';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    LoadingBarHttpClientModule
+    LoadingBarHttpClientModule,
+    NgbModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
