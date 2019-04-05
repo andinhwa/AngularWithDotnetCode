@@ -1,7 +1,11 @@
-WebApp.Tools/bin/
-WebApp.Tools/obj/
+################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+/WebApp.Tools/bin
+/WebApp.Tools/obj
+/WebApp.API/obj
+/WebApp.API/bin
+/WebApp.Tools/bin
+/WebApp.Tools/obj
+/db/WebApp.db
 WebApp.API/obj/
-WebApp.API/bin/
-WebApp.Tools/bin/
-WebApp.Tools/obj/
-db/WebApp.db
