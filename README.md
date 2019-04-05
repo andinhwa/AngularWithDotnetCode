@@ -28,5 +28,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## ef
 `dotnet ef  migrations add InitDatabase -p ./WebApp.core -s ./WebApp.Tools -o DBContexts/Migrations`
+
 `dotnet ef -p ./WebApp.core -s ./WebApp.Tools   database update`
 
