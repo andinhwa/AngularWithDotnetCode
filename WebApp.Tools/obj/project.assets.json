@@ -5233,11 +5233,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "e:\\Research\\Aunglar7\\AppCores\\WebApp.Tools\\WebApp.Tools.csproj",
+      "projectUniqueName": "e:\\Research\\Aunglar7\\Angular\\WebApp.Tools\\WebApp.Tools.csproj",
       "projectName": "WebApp.Tools",
-      "projectPath": "e:\\Research\\Aunglar7\\AppCores\\WebApp.Tools\\WebApp.Tools.csproj",
+      "projectPath": "e:\\Research\\Aunglar7\\Angular\\WebApp.Tools\\WebApp.Tools.csproj",
       "packagesPath": "C:\\Users\\an.dinh\\.nuget\\packages\\",
-      "outputPath": "e:\\Research\\Aunglar7\\AppCores\\WebApp.Tools\\obj\\",
+      "outputPath": "e:\\Research\\Aunglar7\\Angular\\WebApp.Tools\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -5256,8 +5256,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "e:\\Research\\Aunglar7\\AppCores\\WebApp.Core\\WebApp.Core.csproj": {
-              "projectPath": "e:\\Research\\Aunglar7\\AppCores\\WebApp.Core\\WebApp.Core.csproj"
+            "e:\\Research\\Aunglar7\\Angular\\WebApp.Core\\WebApp.Core.csproj": {
+              "projectPath": "e:\\Research\\Aunglar7\\Angular\\WebApp.Core\\WebApp.Core.csproj"
             }
           }
         }
