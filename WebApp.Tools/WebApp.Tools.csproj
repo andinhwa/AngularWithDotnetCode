@@ -10,7 +10,7 @@
   </ItemGroup>
 
    <ItemGroup>
-    <None Include="..\WebAppAPI\appsettings.json" Link="appsettings.json">
+    <None Include="..\WebApp.API\appsettings.json" Link="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
