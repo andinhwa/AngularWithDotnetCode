@@ -1,0 +1,15 @@
+E:\Research\Aunglar7\AppCores\WebApp.Tools\bin\Debug\netcoreapp2.1\WebApp.Tools.deps.json
+E:\Research\Aunglar7\AppCores\WebApp.Tools\bin\Debug\netcoreapp2.1\WebApp.Tools.runtimeconfig.json
+E:\Research\Aunglar7\AppCores\WebApp.Tools\bin\Debug\netcoreapp2.1\WebApp.Tools.runtimeconfig.dev.json
+E:\Research\Aunglar7\AppCores\WebApp.Tools\bin\Debug\netcoreapp2.1\WebApp.Tools.dll
+E:\Research\Aunglar7\AppCores\WebApp.Tools\bin\Debug\netcoreapp2.1\WebApp.Tools.pdb
+E:\Research\Aunglar7\AppCores\WebApp.Tools\bin\Debug\netcoreapp2.1\WebApp.Core.dll
+E:\Research\Aunglar7\AppCores\WebApp.Tools\bin\Debug\netcoreapp2.1\WebApp.Core.pdb
+E:\Research\Aunglar7\AppCores\WebApp.Tools\obj\Debug\netcoreapp2.1\WebApp.Tools.csprojAssemblyReference.cache
+E:\Research\Aunglar7\AppCores\WebApp.Tools\obj\Debug\netcoreapp2.1\WebApp.Tools.csproj.CoreCompileInputs.cache
+E:\Research\Aunglar7\AppCores\WebApp.Tools\obj\Debug\netcoreapp2.1\WebApp.Tools.AssemblyInfoInputs.cache
+E:\Research\Aunglar7\AppCores\WebApp.Tools\obj\Debug\netcoreapp2.1\WebApp.Tools.AssemblyInfo.cs
+E:\Research\Aunglar7\AppCores\WebApp.Tools\obj\Debug\netcoreapp2.1\WebApp.Tools.csproj.CopyComplete
+E:\Research\Aunglar7\AppCores\WebApp.Tools\obj\Debug\netcoreapp2.1\WebApp.Tools.dll
+E:\Research\Aunglar7\AppCores\WebApp.Tools\obj\Debug\netcoreapp2.1\WebApp.Tools.pdb
+E:\Research\Aunglar7\AppCores\WebApp.Tools\bin\Debug\netcoreapp2.1\appsettings.json
