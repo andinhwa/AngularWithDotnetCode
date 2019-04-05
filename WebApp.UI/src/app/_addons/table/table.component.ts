@@ -4,7 +4,8 @@ import 'datatables.net';
 import 'datatables.net-bs4';
 import { UserInfor } from '../../_models/userInfor';
 import { DataTableService } from '../../_services';
-import { Observable, Subject} from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { ActivatedRoute, Router  } from '@angular/router';
 
 @Component({
   selector: 'app-table',
@@ -20,13 +21,23 @@ export class TableComponent implements OnInit {
 
   private searchTerms = new Subject<string>();
 
-  constructor(private dataTableService: DataTableService) {}
+  constructor(
+    private dataTableService: DataTableService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
+    this.page = +this.route.snapshot.paramMap.get('tab');
     this.getDataTables();
     this.searchTerms.subscribe(_ => {
       this.datas$ = this.searchData(_);
     });
+  }
+
+  pageChange(): void {
+    this.router.navigateByUrl(`/table/${this.page}`);
+    this.getDataTables();
   }
 
   getDataTables(): void {

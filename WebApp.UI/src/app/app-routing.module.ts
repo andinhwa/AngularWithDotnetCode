@@ -8,7 +8,7 @@ import { AppComponentComponent } from './_components/app-component/app-component
 import { CardsComponent } from './_components/cards/cards.component';
 import { AppAddonComponent } from './_addons/app-addon/app-addon.component';
 import { TableComponent } from './_addons/table/table.component';
-import {AuthGuard} from './_Guard';
+import { AuthGuard } from './_Guard';
 const routes: Routes = [
   {
     path: '',
@@ -27,7 +27,10 @@ const routes: Routes = [
       {
         path: '',
         component: AppAddonComponent,
-        children: [{ path: 'table', component: TableComponent }]
+        children: [
+          { path: 'table', component: TableComponent },
+          { path: 'table/:tab', component: TableComponent }
+        ]
       }
     ]
   },
