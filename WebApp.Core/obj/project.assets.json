@@ -5216,11 +5216,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "e:\\Research\\Aunglar7\\AppCores\\WebApp.Core\\WebApp.Core.csproj",
+      "projectUniqueName": "E:\\Research\\Aunglar7\\Angular\\WebApp.Core\\WebApp.Core.csproj",
       "projectName": "WebApp.Core",
-      "projectPath": "e:\\Research\\Aunglar7\\AppCores\\WebApp.Core\\WebApp.Core.csproj",
+      "projectPath": "E:\\Research\\Aunglar7\\Angular\\WebApp.Core\\WebApp.Core.csproj",
       "packagesPath": "C:\\Users\\an.dinh\\.nuget\\packages\\",
-      "outputPath": "e:\\Research\\Aunglar7\\AppCores\\WebApp.Core\\obj\\",
+      "outputPath": "E:\\Research\\Aunglar7\\Angular\\WebApp.Core\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -12214,11 +12214,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Research\\Aunglar7\\AppCores\\WebApp.API\\WebApp.API.csproj",
+      "projectUniqueName": "E:\\Research\\Aunglar7\\Angular\\WebApp.API\\WebApp.API.csproj",
       "projectName": "WebApp.API",
-      "projectPath": "E:\\Research\\Aunglar7\\AppCores\\WebApp.API\\WebApp.API.csproj",
+      "projectPath": "E:\\Research\\Aunglar7\\Angular\\WebApp.API\\WebApp.API.csproj",
       "packagesPath": "C:\\Users\\an.dinh\\.nuget\\packages\\",
-      "outputPath": "E:\\Research\\Aunglar7\\AppCores\\WebApp.API\\obj\\",
+      "outputPath": "E:\\Research\\Aunglar7\\Angular\\WebApp.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -12237,8 +12237,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "E:\\Research\\Aunglar7\\AppCores\\WebApp.Core\\WebApp.Core.csproj": {
-              "projectPath": "E:\\Research\\Aunglar7\\AppCores\\WebApp.Core\\WebApp.Core.csproj"
+            "E:\\Research\\Aunglar7\\Angular\\WebApp.Core\\WebApp.Core.csproj": {
+              "projectPath": "E:\\Research\\Aunglar7\\Angular\\WebApp.Core\\WebApp.Core.csproj"
             }
           }
         }
