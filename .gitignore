@@ -8,4 +8,11 @@ WebApp.API/obj
 WebApp.Core/bin
 WebApp.Core/obj
 db/WebApp.db
-
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages
+*.cache
+*.props
