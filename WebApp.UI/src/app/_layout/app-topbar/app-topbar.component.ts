@@ -13,8 +13,9 @@ export class AppTopbarComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService
   ) {}
+  fullname: string;
 
-  ngOnInit() {}
+  ngOnInit() { this.fullname = this.authenticationService.currentUserValue.firstName}
 
   sidebarToggled(): void {
     $('[main-body ]').toggleClass('sidebar-toggled');

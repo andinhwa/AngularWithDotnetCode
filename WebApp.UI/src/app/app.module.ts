@@ -22,6 +22,7 @@ import { TableComponent } from './_addons/table/table.component';
 import {AlertComponent} from './_components';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {AppConfigModule} from './app-config.module';
 
 import * as $ from 'jquery';
 import * as bootstrap from 'bootstrap';
@@ -49,13 +50,14 @@ import { from } from 'rxjs';
     HttpClientModule,
     AppRoutingModule,
     LoadingBarHttpClientModule,
-    NgbModule
+    NgbModule,
+    AppConfigModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     // provider used to create fake backend
-    fakeBackendProvider
+    // fakeBackendProvider
   ],
   bootstrap: [AppComponent]
 })

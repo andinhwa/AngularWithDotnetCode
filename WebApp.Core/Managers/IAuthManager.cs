@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -10,7 +11,8 @@ namespace WebApp.Core.Managers {
         Task<IList<User>> GetAllUsersAsync();
         Task<IdentityResult> RegisterUser (User user, string password);
         Task<User> FindUser (string userName, string password);
-        Task<User> FindUser (string userName);
+        Task<User> FindUser (string userName);        
+        Task<User> FindUserByIdAsync(Guid id);
         Client FindClient (string clientId);
         Task<bool> AddRefreshToken (RefreshToken token);
         Task<bool> RemoveRefreshToken (string refreshTokenId);

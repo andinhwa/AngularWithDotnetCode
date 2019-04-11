@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,9 +14,9 @@ namespace WebApp.API {
 
         public static IServiceCollection RegisterAuthorization (this IServiceCollection services) {
 
-            services               
+            services
                 .AddAuthentication (options => {
-                    options.DefaultScheme = "ServerCookie";
+                    options.DefaultScheme = "ServerCookie"; //OAuthValidationDefaults.AuthenticationScheme; //"ServerCookie";
                     options.DefaultChallengeScheme = OAuthValidationDefaults.AuthenticationScheme;
                     options.DefaultAuthenticateScheme = OAuthValidationDefaults.AuthenticationScheme;
                     options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -24,17 +25,24 @@ namespace WebApp.API {
                     options.Cookie.Name = CookieAuthenticationDefaults.CookiePrefix + "ServerCookie";
                     options.ExpireTimeSpan = TimeSpan.FromMinutes (5);
                     options.LoginPath = new PathString ("/signin");
-                    options.LogoutPath = new PathString ("/signout");                 
+                    options.LogoutPath = new PathString ("/signout");
                 })
                 .AddOAuthValidation ()
                 .AddOpenIdConnectServer (options => {
                     options.ProviderType = typeof (AuthorizationProvider);
+                    options.AuthorizationEndpointPath = "/connect/authorize";
+                    options.LogoutEndpointPath = "/connect/logout";
                     options.TokenEndpointPath = "/connect/token";
-
+                    options.UserinfoEndpointPath = "/connect/userinfo";
                     // Note: see AuthorizationController.cs for more
                     // information concerning ApplicationCanDisplayErrors.
                     options.ApplicationCanDisplayErrors = true;
                     options.AllowInsecureHttp = true;
+                    // options.Events = new OpenIdConnectEvents {
+                    //     OnUserInformationReceived = usr => {
+                    //         return Task.FromResult (usr);
+                    //     }
+                    // };
 
                     // Note: to override the default access token format and use JWT, assign AccessTokenHandler:
                     //

@@ -1,8 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { User } from '../_models';
+import { environment } from '../../environments/environment';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/x-www-form-urlencoded'
+  })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -23,20 +30,22 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-    return this.http
-      .post<any>(`/users/authenticate`, { username, password })
-      .pipe(
-        map(user => {
-          // login successful if there's a jwt token in the response
-          if (user && user.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            this.currentUserSubject.next(user);
-          }
 
-          return user;
-        })
-      );
+    const url = `${environment.apiEndpoint}/connect/token`;
+    const body = `username=${username}&password=${password}&grant_type=password`;
+
+    return this.http.post<User>(url, body, httpOptions)
+    .pipe(
+      map(user => {
+        // login successful if there's a jwt token in the response
+        if (user && user.access_token) {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.currentUserSubject.next(user as User);
+        }
+        return user;
+      })
+    );
   }
 
   logout() {

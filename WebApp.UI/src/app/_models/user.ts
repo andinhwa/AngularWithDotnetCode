@@ -5,4 +5,7 @@ export class User {
   firstName: string;
   lastName: string;
   token: string;
+  access_token: string;
+  token_type: string;
+  expires_in: number;
 }
