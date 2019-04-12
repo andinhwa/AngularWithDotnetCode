@@ -2,10 +2,10 @@ import { Component, OnInit, PipeTransform } from '@angular/core';
 import * as $ from 'jquery';
 import 'datatables.net';
 import 'datatables.net-bs4';
-import { UserInfor } from '../../_models/userInfor';
-import { DataTableService } from '../../_services';
+import { User } from '../../_models/user';
+import { UserService } from '../../_services';
 import { Observable, Subject } from 'rxjs';
-import { ActivatedRoute, Router  } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-table',
@@ -14,18 +14,18 @@ import { ActivatedRoute, Router  } from '@angular/router';
 })
 export class TableComponent implements OnInit {
   table: any;
-  datas: UserInfor[];
-  datas$: UserInfor[];
+  datas: User[];
+  datas$: User[];
   page = 1;
   pageSize = 70;
 
   private searchTerms = new Subject<string>();
 
   constructor(
-    private dataTableService: DataTableService,
+    private userService: UserService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.page = +this.route.snapshot.paramMap.get('tab');
@@ -41,7 +41,7 @@ export class TableComponent implements OnInit {
   }
 
   getDataTables(): void {
-    this.dataTableService.getAll().subscribe(datas => {
+    this.userService.getAll().subscribe(datas => {
       this.datas = datas;
       this.searchTerms.next(``);
     });
@@ -49,15 +49,16 @@ export class TableComponent implements OnInit {
     // this.table = table.DataTable();
   }
 
-  searchData(_: string): UserInfor[] {
+  searchData(_: string): User[] {
     return this.datas.filter(user => {
       const term = _.toLowerCase();
       return (
-        user.first_name.toLowerCase().includes(term) ||
-        user.last_name.toLowerCase().includes(term) ||
-        user.gender.toLowerCase().includes(term) ||
-        user.ip_address.toLowerCase().includes(term) ||
-        user.email.toLowerCase().includes(term)
+        // user.first_name.toLowerCase().includes(term) ||
+        // user.last_name.toLowerCase().includes(term) ||
+        // user.gender.toLowerCase().includes(term) ||
+        // user.ip_address.toLowerCase().includes(term) ||
+        // user.email.toLowerCase().includes(term)
+        user.UserName.toLowerCase().includes(term)
       );
     });
   }

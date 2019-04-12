@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserInfor } from '../_models';
+import { User } from '../_models';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -17,8 +17,8 @@ export class DataTableService {
   private httpParams = new HttpParams()
   .set('key', 'd4868c40');
 
-  getAll(): Observable<UserInfor[]> {
-    return this.http.get<UserInfor[]>(this.heroesUrl, {headers: httpOptions.headers, params: this.httpParams}).pipe(
+  getAll(): Observable<User[]> {
+    return this.http.get<User[]>(this.heroesUrl, {headers: httpOptions.headers, params: this.httpParams}).pipe(
       tap(_ => console.log('get OK')),
       catchError(this.handleError(`Get ALL userInfor`, []))
     );

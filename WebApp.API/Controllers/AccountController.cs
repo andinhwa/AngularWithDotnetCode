@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using WebApp.API.Models;
 using WebApp.Core.Managers;
 using WebApp.Core.Models.Identity;
 
@@ -9,17 +12,23 @@ namespace WebApp.API.Controllers {
 
     [ApiController]
     [AppAuthorize]
-    [Route ("api/User")]
+    [Route ("api/Users")]
     public class AccountController : ControllerBase {
         private readonly IAuthManager _authManager;
-
-        public AccountController (IAuthManager authManager) {
-            this._authManager = authManager;
+        private readonly IMapper _mapper;
+        public AccountController (
+            IAuthManager authManager,
+            IMapper mapper
+        ) {
+            _authManager = authManager;
+            _mapper = mapper;
         }
 
-        [Route ("GetAll")]
-        public async Task<ActionResult> GetAllUsers () {
-            return Ok (await _authManager.GetAllUsersAsync ());
+        [HttpGet]
+        public async Task<ActionResult<IList<UserViewModel>>> Get () {
+            var users = await _authManager.GetAllUsersAsync ();
+            var result = _mapper.Map<IList<UserViewModel>>(users);
+                return Ok (users); 
         }
 
         [Route ("Get")]

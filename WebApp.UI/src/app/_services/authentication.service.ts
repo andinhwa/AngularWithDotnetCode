@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { map, catchError, first } from 'rxjs/operators';
-import { User } from '../_models';
+import { BehaviorSubject, Observable} from 'rxjs';
+import { map, first} from 'rxjs/operators';
+import { AppTokenInfor } from '../_models';
 import { environment } from '../../environments/environment';
 
 const httpOptions = {
@@ -15,17 +15,17 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  private currentUserSubject: BehaviorSubject<AppTokenInfor>;
+  public currentUser: Observable<AppTokenInfor>;
 
   constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<User>(
+    this.currentUserSubject = new BehaviorSubject<AppTokenInfor>(
       JSON.parse(localStorage.getItem('currentUser'))
     );
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public get currentUserValue(): User {
+  public get currentUserValue(): AppTokenInfor {
     return this.currentUserSubject.value;
   }
 
@@ -33,13 +33,13 @@ export class AuthenticationService {
     const url = `${environment.apiEndpoint}/connect/token`;
     const body = `username=${username}&password=${password}&grant_type=password&scope=offline_access+profile+email+openid`;
 
-    return this.http.post<User>(url, body, httpOptions).pipe(
+    return this.http.post<AppTokenInfor>(url, body, httpOptions).pipe(
       map(user => {
         // login successful if there's a jwt token in the response
         if (user && user.access_token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(user));
-          this.currentUserSubject.next(user as User);
+          this.currentUserSubject.next(user as AppTokenInfor);
           this.getUserInfor();
         }
         return user;
@@ -49,9 +49,14 @@ export class AuthenticationService {
 
   getUserInfor(): void {
     const url = `${environment.apiEndpoint}/connect/userinfo`;
-    this.http.get(url) .pipe(first()).subscribe(data => {
-      debugger;
-      console.log(data);
+    this.http.get<AppTokenInfor>(url).pipe(first()).subscribe(data => {
+      const user = this.currentUserSubject.value;
+      user.username = data.username;
+      user.fullName = data.fullName;
+      user.roles = data.roles;
+      localStorage.removeItem('currentUser');
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      this.currentUserSubject.next(user as AppTokenInfor);
     });
   }
 

@@ -12,10 +12,12 @@ export class AppTopbarComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService
-  ) {}
+  ) { }
   fullname: string;
 
-  ngOnInit() { this.fullname = this.authenticationService.currentUserValue.firstName}
+  ngOnInit() {
+    this.fullname = this.authenticationService.currentUserValue.fullName
+  }
 
   sidebarToggled(): void {
     $('[main-body ]').toggleClass('sidebar-toggled');

@@ -88,11 +88,12 @@ namespace WebApp.API.Providers {
             return Task.FromResult (0);
         }
 
-        public override async  Task HandleUserinfoRequest (HandleUserinfoRequestContext context) {             
-             var user = await _authManager.FindUser(context.Ticket.Principal.Identity.Name);
-             foreach(var claim in context.Ticket.Principal.Claims){
-                 context.Claims.Add(claim.Type, claim.Value);
-             }
+        public override async Task HandleUserinfoRequest (HandleUserinfoRequestContext context) {
+            var user = await _authManager.GetRolesByUGetUserWithRolesByUserNameAsync (context.Ticket.Principal.Identity.Name);
+            context.Claims.Add(OpenIdConnectConstants.Claims.Username, user.UserName);
+            context.Claims.Add("fullName", user.FullName);
+            context.Claims.Add(OpenIdConnectConstants.Claims.Email, user.Email);
+            context.Claims.Add("roles", user.UserRoles.Select(r=>r.Role.Name).ToList().JsonSerializeObject());
         }
 
         public override async Task HandleTokenRequest (HandleTokenRequestContext context) {
@@ -128,11 +129,6 @@ namespace WebApp.API.Providers {
 
                 identity.AddClaim (
                     new Claim (OpenIdConnectConstants.Claims.Email, user.Email)
-                    .SetDestinations (OpenIdConnectConstants.Destinations.AccessToken,
-                        OpenIdConnectConstants.Destinations.IdentityToken));
-
-                identity.AddClaim (
-                    new Claim (OpenIdConnectConstants.Claims.Role, "['a','b','c']")
                     .SetDestinations (OpenIdConnectConstants.Destinations.AccessToken,
                         OpenIdConnectConstants.Destinations.IdentityToken));
 

@@ -7,6 +7,6 @@ namespace WebApp.Core.DBContexts.Repositories
 {
     internal interface IUserRepository : IGenericRepository<User>
     {
-        User GetUserWithRolesByUserName(string username);
+        Task<User> GetUserWithRolesByUserNameAsync(string userName);
     }
 }

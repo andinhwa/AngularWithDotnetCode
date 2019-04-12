@@ -8,11 +8,11 @@ using WebApp.Core.Models.Identity;
 namespace WebApp.Core.Managers {
     public interface IAuthManager {
 
-        Task<IList<User>> GetAllUsersAsync();
+        Task<IList<User>> GetAllUsersAsync ();
         Task<IdentityResult> RegisterUser (User user, string password);
         Task<User> FindUser (string userName, string password);
-        Task<User> FindUser (string userName);        
-        Task<User> FindUserByIdAsync(Guid id);
+        Task<User> FindUser (string userName);
+        Task<User> FindUserByIdAsync (Guid id);
         Client FindClient (string clientId);
         Task<bool> AddRefreshToken (RefreshToken token);
         Task<bool> RemoveRefreshToken (string refreshTokenId);
@@ -25,6 +25,7 @@ namespace WebApp.Core.Managers {
         Task<IdentityResult> UpdateProfileWithPassword (User user, string password, string newPassword);
         Task<IdentityResult> Update (User user);
         Task<bool> IsUserInRoleAsync (string userName, string role);
-        bool IsUserInRoles (string userName, string[] roles);
+        Task<bool> IsUserInRolesAsync (string userName, string[] roles);
+        Task<User> GetRolesByUGetUserWithRolesByUserNameAsync (string userName);
     }
 }

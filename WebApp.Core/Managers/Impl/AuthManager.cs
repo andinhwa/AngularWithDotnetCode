@@ -101,6 +101,10 @@ namespace WebApp.Core.Managers.Impl {
             return await _userRepository.ToListAsync ();
         }
 
+        public async Task<User> GetRolesByUGetUserWithRolesByUserNameAsync (string userName) {
+            return await _userRepository.GetUserWithRolesByUserNameAsync (userName);
+        }
+
         public async Task<bool> IsUserInRoleAsync (string userName, string role) {
             if (string.IsNullOrEmpty (userName) || string.IsNullOrEmpty (role)) {
                 return false;
@@ -109,13 +113,13 @@ namespace WebApp.Core.Managers.Impl {
             return user != null && await _userManager.IsInRoleAsync (user, role);
         }
 
-        public bool IsUserInRoles (string userName, string[] roles) {
+        public async Task<bool> IsUserInRolesAsync (string userName, string[] roles) {
             if (string.IsNullOrEmpty (userName) || roles.Count () == 0) {
                 return false;
             }
 
             var normalizedUserName = _userManager.NormalizeKey (userName);
-            var user = _userRepository.GetUserWithRolesByUserName (normalizedUserName);
+            var user = await _userRepository.GetUserWithRolesByUserNameAsync (normalizedUserName);
             if (user == null) {
                 return false;
             }
