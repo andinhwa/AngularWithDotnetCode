@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, first } from 'rxjs/operators';
 import { User } from '../_models';
 import { environment } from '../../environments/environment';
 
@@ -30,25 +30,32 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-
     const url = `${environment.apiEndpoint}/connect/token`;
-    const body = `username=${username}&password=${password}&grant_type=password`;
+    const body = `username=${username}&password=${password}&grant_type=password&scope=offline_access+profile+email+openid`;
 
-    return this.http.post<User>(url, body, httpOptions)
-    .pipe(
+    return this.http.post<User>(url, body, httpOptions).pipe(
       map(user => {
         // login successful if there's a jwt token in the response
         if (user && user.access_token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.currentUserSubject.next(user as User);
+          this.getUserInfor();
         }
         return user;
       })
     );
   }
 
-  logout() {
+  getUserInfor(): void {
+    const url = `${environment.apiEndpoint}/connect/userinfo`;
+    this.http.get(url) .pipe(first()).subscribe(data => {
+      debugger;
+      console.log(data);
+    });
+  }
+
+  logout(): void {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);

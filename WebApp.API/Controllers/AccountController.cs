@@ -9,7 +9,7 @@ namespace WebApp.API.Controllers {
 
     [ApiController]
     [AppAuthorize]
-     [Route ("api/User")]
+    [Route ("api/User")]
     public class AccountController : ControllerBase {
         private readonly IAuthManager _authManager;
 
@@ -21,8 +21,8 @@ namespace WebApp.API.Controllers {
         public async Task<ActionResult> GetAllUsers () {
             return Ok (await _authManager.GetAllUsersAsync ());
         }
-[       
-        Route ("Get")]
+
+        [Route ("Get")]
         public async Task<ActionResult> Get (Guid id) {
             return Ok (await _authManager.FindUserByIdAsync (id));
         }

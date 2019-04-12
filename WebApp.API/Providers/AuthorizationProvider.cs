@@ -17,11 +17,6 @@ namespace WebApp.API.Providers {
             _authManager = authManager;
         }
 
-        public override Task ApplyUserinfoResponse (ApplyUserinfoResponseContext context) {
-
-            var a = context;
-            return Task.FromResult (0);
-        }
         public override Task ValidateAuthorizationRequest (ValidateAuthorizationRequestContext context) {
             // Note: the OpenID Connect server middleware supports the authorization code, implicit and hybrid flows
             // but this authorization provider only accepts response_type=code authorization/authentication requests.
@@ -90,8 +85,14 @@ namespace WebApp.API.Providers {
             // to inform the server the request should be accepted without
             // enforcing client authentication.
             context.Skip ();
-
             return Task.FromResult (0);
+        }
+
+        public override async  Task HandleUserinfoRequest (HandleUserinfoRequestContext context) {             
+             var user = await _authManager.FindUser(context.Ticket.Principal.Identity.Name);
+             foreach(var claim in context.Ticket.Principal.Claims){
+                 context.Claims.Add(claim.Type, claim.Value);
+             }
         }
 
         public override async Task HandleTokenRequest (HandleTokenRequestContext context) {
@@ -115,23 +116,31 @@ namespace WebApp.API.Providers {
                     OpenIdConnectConstants.Claims.Name,
                     OpenIdConnectConstants.Claims.Role);
 
-                identity.AddClaim (OpenIdConnectConstants.Claims.Subject, user.FullName,
-                    OpenIdConnectConstants.Destinations.AccessToken,
-                    OpenIdConnectConstants.Destinations.IdentityToken);
+                identity.AddClaim (
+                    new Claim (OpenIdConnectConstants.Claims.Subject, user.Id.ToString ())
+                    .SetDestinations (OpenIdConnectConstants.Destinations.AccessToken,
+                        OpenIdConnectConstants.Destinations.IdentityToken));
 
-                identity.AddClaim (OpenIdConnectConstants.Claims.Nickname, user.FirstName,
-                    OpenIdConnectConstants.Destinations.AccessToken,
-                    OpenIdConnectConstants.Destinations.IdentityToken);
-                identity.AddClaim (OpenIdConnectConstants.Claims.Name, user.FullName, OpenIdConnectConstants.Destinations.AccessToken,
-                    OpenIdConnectConstants.Destinations.IdentityToken);
+                identity.AddClaim (
+                    new Claim (OpenIdConnectConstants.Claims.Name, user.UserName)
+                    .SetDestinations (OpenIdConnectConstants.Destinations.AccessToken,
+                        OpenIdConnectConstants.Destinations.IdentityToken));
 
-                // Create a new authentication ticket holding the user identity.
+                identity.AddClaim (
+                    new Claim (OpenIdConnectConstants.Claims.Email, user.Email)
+                    .SetDestinations (OpenIdConnectConstants.Destinations.AccessToken,
+                        OpenIdConnectConstants.Destinations.IdentityToken));
+
+                identity.AddClaim (
+                    new Claim (OpenIdConnectConstants.Claims.Role, "['a','b','c']")
+                    .SetDestinations (OpenIdConnectConstants.Destinations.AccessToken,
+                        OpenIdConnectConstants.Destinations.IdentityToken));
+
                 var ticket = new AuthenticationTicket (
                     new ClaimsPrincipal (identity),
                     new AuthenticationProperties (),
                     OpenIdConnectServerDefaults.AuthenticationScheme);
 
-                // Set the list of scopes granted to the client application.
                 ticket.SetScopes (new [] {
                     /* openid: */
                     OpenIdConnectConstants.Scopes.OpenId,
@@ -142,7 +151,7 @@ namespace WebApp.API.Providers {
                         /* offline_access: */
                         OpenIdConnectConstants.Scopes.OfflineAccess
                 }.Intersect (context.Request.GetScopes ()));
-
+                ticket.SetResources ("resource_server");
                 context.Validate (ticket);
             }
         }
