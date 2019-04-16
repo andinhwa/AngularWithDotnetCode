@@ -29,8 +29,7 @@ namespace WebApp.Core {
 
         public DbSet<Client> Clients { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
-
-
+        public DbSet<Customer> Customers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             _baseEntityTypeConfigurationOption.Context = this;
