@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 
-import { fakeBackendProvider } from './_helpers';
+// import { fakeBackendProvider } from './_helpers';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,7 +19,7 @@ import { ButtonComponent } from './_components';
 import { CardsComponent } from './_components';
 import { AppAddonComponent } from './_addons/app-addon/app-addon.component';
 import { TableComponent } from './_addons/table/table.component';
-import {AlertComponent} from './_components';
+import { AlertComponent} from './_components';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AppConfigModule} from './app-config.module';

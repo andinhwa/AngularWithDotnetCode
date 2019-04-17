@@ -6,44 +6,40 @@
     <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
   </div>
   <div class="card-body">
-    <div class="form-group form-inline">
-      Full text search:
-      <input class="form-control ml-2" type="text" #searchBox  (input)="search(searchBox.value)" />
+
+    <div class="form-row">
+      <div class="col-7">
+        <input type="text" #searchBox (input)="search(searchBox.value)" class="form-control"
+          placeholder="full text search">
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-success fa-pull-right">Add</button>
+      </div>
     </div>
-    <div class="table-responsive">
-      <table
-        class="table table-bordered"
-        id="dataTable"
-        width="100%"
-        cellspacing="0"
-      >
+
+    <div class="table-responsive mt-lg-5">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
           <tr>
             <th>first name</th>
             <th>last name</th>
             <th>email</th>
-            <th>phone number</th>
-            <th>user name</th>
+            <th>address</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of datas$">
+          <tr *ngFor="let item of customers$| async">
             <td>{{ item.FirstName }}</td>
             <td>{{ item.LastName }}</td>
             <td>{{ item.Email }}</td>
-            <td>{{ item.PhoneNumber }}</td>
-            <td>{{ item.UserName }}</td>
+            <td>{{ item.Address }}</td>
           </tr>
         </tbody>
       </table>
     </div>
     <div>
-      <ngb-pagination
-        [collectionSize]="pageSize"
-        [(page)]="page"
-        (pageChange)="pageChange()"
-        aria-label="Default pagination"
-      ></ngb-pagination>
+      <ngb-pagination [collectionSize]="pageSize" [(page)]="page" (pageChange)="pageChange()"
+        aria-label="Default pagination"></ngb-pagination>
     </div>
   </div>
 </div>

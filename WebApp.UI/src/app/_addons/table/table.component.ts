@@ -2,10 +2,11 @@ import { Component, OnInit, PipeTransform } from '@angular/core';
 import * as $ from 'jquery';
 import 'datatables.net';
 import 'datatables.net-bs4';
-import { User } from '../../_models/user';
-import { UserService } from '../../_services';
+import { Customer } from '../../_models';
+import { CustomerService } from '../../_services';
 import { Observable, Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-table',
@@ -14,15 +15,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class TableComponent implements OnInit {
   table: any;
-  datas: User[];
-  datas$: User[];
+  customers$: Observable<Customer[]>;
   page = 1;
   pageSize = 70;
 
   private searchTerms = new Subject<string>();
-
   constructor(
-    private userService: UserService,
+    private customerService: CustomerService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -30,9 +29,16 @@ export class TableComponent implements OnInit {
   ngOnInit() {
     this.page = +this.route.snapshot.paramMap.get('tab');
     this.getDataTables();
-    this.searchTerms.subscribe(_ => {
-      this.datas$ = this.searchData(_);
-    });
+    this.customers$ = this.searchTerms.pipe(
+      // wait 300ms after each keystroke before considering the term
+      debounceTime(300),
+
+      // ignore new term if same as previous term
+      distinctUntilChanged(),
+
+      // switch to new search observable each time the term changes
+      switchMap((term: string) => this.customerService.search(term))
+    );
   }
 
   pageChange(): void {
@@ -41,29 +47,10 @@ export class TableComponent implements OnInit {
   }
 
   getDataTables(): void {
-    this.userService.getAll().subscribe(datas => {
-      this.datas = datas;
-      this.searchTerms.next(``);
-    });
-    // const table = $('#dataTable');
-    // this.table = table.DataTable();
+    this.customers$ = this.customerService.getAll();
   }
 
-  searchData(_: string): User[] {
-    return this.datas.filter(user => {
-      const term = _.toLowerCase();
-      return (
-        // user.first_name.toLowerCase().includes(term) ||
-        // user.last_name.toLowerCase().includes(term) ||
-        // user.gender.toLowerCase().includes(term) ||
-        // user.ip_address.toLowerCase().includes(term) ||
-        // user.email.toLowerCase().includes(term)
-        user.UserName.toLowerCase().includes(term)
-      );
-    });
-  }
-
-  search(_: string) {
-    this.searchTerms.next(_);
+  search(term: string): void {
+    this.searchTerms.next(term);
   }
 }

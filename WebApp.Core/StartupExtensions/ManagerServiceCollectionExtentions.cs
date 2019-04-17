@@ -9,6 +9,7 @@ namespace WebApp.Core.StartupExtensions
         public static IServiceCollection RegisterManagerServices(this IServiceCollection services)
         {
             services.AddTransient<IAuthManager, AuthManager>();
+            services.AddTransient<ICustomerManager, CustomerManager>();
             return services;
         }
     }
