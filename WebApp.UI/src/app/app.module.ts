@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-
 // import { fakeBackendProvider } from './_helpers';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { AppRoutingModule } from './app-routing.module';
@@ -17,17 +16,15 @@ import { AppFooterComponent } from './_layout/app-footer/app-footer.component';
 import { AppComponentComponent } from './_components';
 import { ButtonComponent } from './_components';
 import { CardsComponent } from './_components';
-import { AppAddonComponent } from './_addons/app-addon/app-addon.component';
-import { TableComponent } from './_addons/table/table.component';
-import { AlertComponent} from './_components';
+import { TableComponent, AddNewCustomerComponent, AppAddonComponent } from './_addons';
+import { AlertComponent } from './_components';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {AppConfigModule} from './app-config.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AppConfigModule } from './app-config.module';
 
 import * as $ from 'jquery';
 import * as bootstrap from 'bootstrap';
 import { from } from 'rxjs';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,10 +39,13 @@ import { from } from 'rxjs';
     CardsComponent,
     AppAddonComponent,
     TableComponent,
-    AlertComponent
+    AlertComponent,
+    AddNewCustomerComponent
   ],
+  entryComponents: [AddNewCustomerComponent],
   imports: [
     BrowserModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
@@ -53,6 +53,7 @@ import { from } from 'rxjs';
     NgbModule,
     AppConfigModule
   ],
+
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
@@ -61,4 +62,4 @@ import { from } from 'rxjs';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

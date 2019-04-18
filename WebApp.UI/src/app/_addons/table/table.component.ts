@@ -1,12 +1,14 @@
-import { Component, OnInit, PipeTransform } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import 'datatables.net';
 import 'datatables.net-bs4';
 import { Customer } from '../../_models';
 import { CustomerService } from '../../_services';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, from } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddNewCustomerComponent } from '../add-new-customer/add-new-customer.component';
 
 @Component({
   selector: 'app-table',
@@ -23,7 +25,9 @@ export class TableComponent implements OnInit {
   constructor(
     private customerService: CustomerService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
+
   ) { }
 
   ngOnInit() {
@@ -53,4 +57,14 @@ export class TableComponent implements OnInit {
   search(term: string): void {
     this.searchTerms.next(term);
   }
+
+  editCustomer(customer: Customer): void {
+    const modalRef = this.modalService
+      .open(AddNewCustomerComponent, { centered: true, backdrop: 'static', size: 'lg' });
+    modalRef.result.then((result) => {
+      console.log(result);
+    });
+    modalRef.componentInstance.customer = customer;
+  }
+
 }

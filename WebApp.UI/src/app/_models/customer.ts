@@ -1,8 +1,8 @@
 export class Customer {
-  Id: string;
-  FirstName: string;
-  LastName: string;
-  FullNane: string;
-  Email: string;
-  Address: string;
+  id: string;
+  firstName: string;
+  lastName: string;
+  fullNane: string;
+  email: string;
+  address: string;
 }

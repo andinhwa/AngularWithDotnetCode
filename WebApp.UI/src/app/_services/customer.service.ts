@@ -29,14 +29,14 @@ export class CustomerService {
 
   add(customer: Customer) {
     return this.http.post(`${apiUrl}`, customer).pipe(
-      tap((newCustomer: Customer) => console.log(`add Customer w/ id =${newCustomer.Id}`)),
+      tap((newCustomer: Customer) => console.log(`add Customer w/ id =${newCustomer.id}`)),
       catchError(this.handleError<Customer>(`Add Customer`))
     );
   }
 
   update(customer: Customer) {
-    return this.http.put(`${apiUrl}/${customer.Id}`, customer).pipe(
-      tap(_ => console.log(`updated Customer id = ${customer.Id}`)),
+    return this.http.put(`${apiUrl}/${customer.id}`, customer).pipe(
+      tap(_ => console.log(`updated Customer id = ${customer.id}`)),
       catchError(this.handleError<any>('updateCustomer'))
     );
   }
