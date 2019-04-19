@@ -38,9 +38,9 @@ namespace WebApp.API.Controllers {
 
         // POST api/values
         [HttpPost]
-        public async Task Post ([FromBody] string value) {
-            var customer = value.JsonDeserializeObject<CustomerViewModel> ();
-            await _customerManager.AddAsync (customer);
+        public async Task<CustomerViewModel> Post (CustomerViewModel customer) {
+           // var customer = value.JsonDeserializeObject<CustomerViewModel> ();
+           return  await _customerManager.AddOrUpdateAsync (customer);
         }
 
         // PUT api/values/5

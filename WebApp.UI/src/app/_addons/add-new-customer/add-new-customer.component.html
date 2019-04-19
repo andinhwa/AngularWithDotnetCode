@@ -1,38 +1,84 @@
 <div class="modal-header">
   <h4 class="modal-title">Hi there!</h4>
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.close()">
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
   <form [formGroup]="customerForm">
-    <div class="form-group" [ngClass]="{'has-success': !f.firstName.invalid, 'has-error':f.firstName.invalid  }">
-      <label for="firstName">First Name</label>
-      <input hidden formControlName="id">
-      <input type="text" class="form-control" id="firstName" formControlName="firstName" ng-from
-        placeholder="firstName">
-      <small class="form-text text-muted" hidden></small>
-      {{f.firstName.errors.required}}
-      <label *ngIf="!(!f.firstName.errors.required)" class="control-label">Name is required.</label>
+    <input hidden formControlName="id">
+    <div class="form-group row">
+      <label for="firstName" class="col-sm-2 col-form-label"
+        [ngClass]="{'text-success': !invalid('firstName'), 'text-danger': invalid('firstName')}">
+        First Name</label>
+      <div class="col-sm-7">
+        <input type="text" class="form-control" formControlName="firstName"
+          [ngClass]="{'is-valid': !invalid('firstName'), 'is-invalid': invalid('firstName')}" id="firstName"
+          placeholder="first Name">
+      </div>
+      <div class="col-sm-3">
+        <small id="firstNameHelp" class="text-danger" *ngIf="invalid('firstName', 'required')">
+          firstName is required.
+        </small>
+        <small id="firstNameHelp" class="text-danger" *ngIf="invalid('firstName', 'minlength')">
+          Must be 2 characters long.
+        </small>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="lastName">Last Name</label>
-      <input type="email" class="form-control" id="lastName" formControlName="lastName" placeholder="lastName">
+
+    <div class="form-group row">
+      <label for="lastName" class="col-sm-2 col-form-label"
+        [ngClass]="{'text-success': !invalid('lastName'), 'text-danger': invalid('lastName')}">
+        Last Name</label>
+      <div class="col-sm-7">
+        <input type="text" class="form-control" formControlName="lastName"
+          [ngClass]="{'is-valid': !invalid('lastName'), 'is-invalid': invalid('lastName')}" id="lastName"
+          placeholder="Last Name">
+      </div>
+      <div class="col-sm-3">
+        <small class="text-danger" *ngIf="invalid('lastName', 'required')">
+          lastName is required.
+        </small>
+        <small class="text-danger" *ngIf="invalid('lastName', 'minlength')">
+          Must be 8-20 characters long.
+        </small>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" class="form-control" id="email" formControlName="email" placeholder="name@example.com">
+
+
+    <div class="form-group row">
+      <label for="email" class="col-sm-2 col-form-label"
+        [ngClass]="{'text-success': !invalid('email'), 'text-danger': invalid('email')}">
+        Email</label>
+      <div class="col-sm-7">
+        <input type="email" class="form-control" formControlName="email"
+          [ngClass]="{'is-valid': !invalid('email'), 'is-invalid': invalid('email')}" id="email"
+          placeholder="name@example.com">
+      </div>
+      <div class="col-sm-3">
+        <small class="text-danger" *ngIf="invalid('email', 'required')">
+          email is required.
+        </small>
+        <small class="text-danger" *ngIf="invalid('email', 'email')">
+          Email Wrong
+        </small>
+      </div>
     </div>
 
     <div class="form-group">
-      <label for="address">address</label>
-      <textarea class="form-control" id="address" formControlName="address" rows="3"></textarea>
+      <label for="address" [ngClass]="{'text-success': !invalid('address'), 'text-danger': invalid('address')}">
+        address</label>
+      <textarea class="form-control" id="address" formControlName="address" rows="3"
+      [ngClass]="{'is-valid': !invalid('address'), 'is-invalid': invalid('address')}" id="address"
+      ></textarea>
+      <label class="text-danger" *ngIf="invalid('address', 'required')">
+        email is required.
+      </label>
     </div>
   </form>
 </div>
 <app-alert></app-alert>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss()">Cancel</button>
   <button [disabled]="customerForm.invalid" type="button" class="btn btn-outline-primary" (click)="save()">Save</button>
-
 </div>

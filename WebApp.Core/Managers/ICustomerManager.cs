@@ -10,9 +10,11 @@ namespace WebApp.Core.Managers {
     public interface ICustomerManager {
         Task<IList<CustomerViewModel>> GetAllAsync ();
         Task<CustomerViewModel> GetByIdAsync (Guid id);
-        Task<bool> AddAsync (CustomerViewModel customervmd);
-        Task<bool> UpdateAsync (CustomerViewModel customervmd);
+        Task<CustomerViewModel> AddAsync (CustomerViewModel customervmd);
+        Task<CustomerViewModel> AddOrUpdateAsync(CustomerViewModel customer);
+        Task<CustomerViewModel> UpdateAsync (CustomerViewModel customervmd);
         Task<bool> DeleteAsync(Guid id);
         Task<IList<CustomerViewModel>> SearchAsync (string searchKey);
+        
     }
 }

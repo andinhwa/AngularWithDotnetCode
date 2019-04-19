@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { catchError, tap, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Customer } from '../_models';
 import { environment } from '../../environments/environment';
-
 const apiUrl = `${environment.apiEndpoint}/api/customer`;
 
 @Injectable({
@@ -28,7 +27,7 @@ export class CustomerService {
   }
 
   add(customer: Customer) {
-    return this.http.post(`${apiUrl}`, customer).pipe(
+    return this.http.post<Customer>(`${apiUrl}`, customer).pipe(
       tap((newCustomer: Customer) => console.log(`add Customer w/ id =${newCustomer.id}`)),
       catchError(this.handleError<Customer>(`Add Customer`))
     );
@@ -45,7 +44,18 @@ export class CustomerService {
     return this.http.delete(`${apiUrl}/${id}`);
   }
 
-  search(key: string) {
+  search(terms: Observable<string>) {
+   return terms.pipe(
+      // wait 300ms after each keystroke before considering the term
+      debounceTime(300),
+      // ignore new term if same as previous term
+      distinctUntilChanged(),
+      // switch to new search observable each time the term changes
+      switchMap((term: string) => this.search1(term))
+    );
+  }
+
+  search1(key: string) {
     return this.http.get<Customer[]>(`${apiUrl}/search?key=${key}`).pipe(
       tap(_ => console.log(`found Customer matching "${key}"`)),
       catchError(this.handleError<Customer[]>('Search Customer', []))
@@ -55,7 +65,7 @@ export class CustomerService {
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
+      console.log(error); // log to console instead
 
       // TODO: better job of transforming error for user consumption
       console.log(`${operation} failed: ${error.message}`);

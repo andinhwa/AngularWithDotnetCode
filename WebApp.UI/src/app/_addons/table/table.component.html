@@ -25,14 +25,18 @@
             <th>last name</th>
             <th>email</th>
             <th>address</th>
+            <th>action</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of customers$| async">
-            <td>{{ item.firstName }}</td>
-            <td>{{ item.lastName }}</td>
-            <td>{{ item.email }}</td>
-            <td>{{ item.address }}</td>
+          <tr *ngFor="let item of customers">
+            <td>{{item.firstName}}</td>
+            <td>{{item.lastName}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.address}}</td>
+            <td>
+              <button class="btn btn-primary btn-circle" (click)="editCustomer(item)"><i class="fa fa-edit"></i></button>
+              <button class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></button></td>
           </tr>
         </tbody>
       </table>

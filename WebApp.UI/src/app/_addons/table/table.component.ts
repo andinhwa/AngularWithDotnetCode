@@ -18,6 +18,7 @@ import { AddNewCustomerComponent } from '../add-new-customer/add-new-customer.co
 export class TableComponent implements OnInit {
   table: any;
   customers$: Observable<Customer[]>;
+  customers: Customer[];
   page = 1;
   pageSize = 70;
 
@@ -33,25 +34,17 @@ export class TableComponent implements OnInit {
   ngOnInit() {
     this.page = +this.route.snapshot.paramMap.get('tab');
     this.getDataTables();
-    this.customers$ = this.searchTerms.pipe(
-      // wait 300ms after each keystroke before considering the term
-      debounceTime(300),
-
-      // ignore new term if same as previous term
-      distinctUntilChanged(),
-
-      // switch to new search observable each time the term changes
-      switchMap((term: string) => this.customerService.search(term))
-    );
+    this.customerService.search(this.searchTerms)
+      .subscribe(_ => this.customers = _);
   }
 
   pageChange(): void {
     this.router.navigateByUrl(`/table/${this.page}`);
-    this.getDataTables();
   }
 
   getDataTables(): void {
-    this.customers$ = this.customerService.getAll();
+    this.customerService.getAll()
+      .subscribe(_ => this.customers = _);
   }
 
   search(term: string): void {
@@ -62,7 +55,15 @@ export class TableComponent implements OnInit {
     const modalRef = this.modalService
       .open(AddNewCustomerComponent, { centered: true, backdrop: 'static', size: 'lg' });
     modalRef.result.then((result) => {
-      console.log(result);
+      // var item = this.customers.some(x => x.id === result.id);
+      const filtered = this.customers.filter(_ => _.id === result.id);
+      if (filtered.length > 0) {
+        this.customers.splice(this.customers.indexOf(filtered[0]), 1);
+      }
+      this.customers.push(result);
+
+    }, (reason) => {
+
     });
     modalRef.componentInstance.customer = customer;
   }

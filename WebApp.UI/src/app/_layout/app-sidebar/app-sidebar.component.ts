@@ -6,16 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app-sidebar.component.css']
 })
 export class AppSidebarComponent implements OnInit {
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
   }
 
   sidebarToggled(): void {
-      $('[main-body]').toggleClass('sidebar-toggled');
-      $('.sidebar').toggleClass('toggled');
-      if ($('.sidebar').hasClass('toggled')) {
-        $('.sidebar .collapse').collapse('hide');
-      }
+    $('[main-body]').toggleClass('sidebar-toggled');
+    $('.sidebar').toggleClass('toggled');
+    if ($('.sidebar').hasClass('toggled')) {
+      $('.sidebar .collapse').collapse('hide');
+    }
   }
 }

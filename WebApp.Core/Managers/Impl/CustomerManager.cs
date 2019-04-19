@@ -27,19 +27,26 @@ namespace WebApp.Core.Managers.Impl {
             return _mapper.Map<CustomerViewModel> (await _customerRepository.GetByIdAsync (id));
         }
 
-        public async Task<bool> AddAsync (CustomerViewModel customervmd) {
+        public async Task<CustomerViewModel> AddAsync (CustomerViewModel customervmd) {
             Customer customer = _mapper.Map<Customer> (customervmd);
             _customerRepository.Add (customer);
             await _unitOfWorkRepository.SaveChangesAsync ();
-            return true;
+            return _mapper.Map<CustomerViewModel> (customer);
         }
 
-        public async Task<bool> UpdateAsync (CustomerViewModel customervmd) {
+        public async Task<CustomerViewModel> AddOrUpdateAsync (CustomerViewModel customervmd) {
+            if (customervmd.Id == null)
+                return await AddAsync (customervmd);
+            else
+                return await UpdateAsync (customervmd);
+        }
+
+        public async Task<CustomerViewModel> UpdateAsync (CustomerViewModel customervmd) {
             var customer = await _customerRepository.GetByIdAsync (customervmd.Id.Value);
             customer = _mapper.Map (customervmd, customer);
             _customerRepository.Update (customer);
             await _unitOfWorkRepository.SaveChangesAsync ();
-            return true;
+             return _mapper.Map<CustomerViewModel> (customer);
         }
 
         public async Task<IList<CustomerViewModel>> SearchAsync (string searchKey) {

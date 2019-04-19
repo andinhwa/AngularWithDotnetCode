@@ -18,7 +18,8 @@ namespace WebApp.Core.DBContexts.Repositories.Impl {
         }
 
         public async Task<IList<Customer>> SearchAsync (string searchKey) {
-            return await dbSet.Where (c => c.FirstName.Contains (searchKey) ||
+            return await dbSet.Where (c => string.IsNullOrEmpty(searchKey) ||
+                    c.FirstName.Contains (searchKey) ||
                     c.Address.Contains (searchKey) ||
                     c.Email.Contains (searchKey))
                 .ToListAsync ();
