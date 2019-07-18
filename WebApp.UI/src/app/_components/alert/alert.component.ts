@@ -20,6 +20,7 @@ export class AlertComponent implements OnInit {
         });
     }
 
+// tslint:disable-next-line: use-life-cycle-interface
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }

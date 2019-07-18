@@ -9,6 +9,8 @@ import { CardsComponent } from './_components/cards/cards.component';
 import { AppAddonComponent } from './_addons/app-addon/app-addon.component';
 import { TableComponent } from './_addons/table/table.component';
 import { AuthGuard } from './_Guard';
+import {TabStepComponent, StepOneComponent} from './_components';
+
 const routes: Routes = [
   {
     path: '',
@@ -21,7 +23,8 @@ const routes: Routes = [
         component: AppComponentComponent,
         children: [
           { path: 'button', component: ButtonComponent },
-          { path: 'cards', component: CardsComponent }
+          { path: 'cards', component: CardsComponent },
+          { path: 'tabone', component: TabStepComponent },
         ]
       },
       {
@@ -30,6 +33,13 @@ const routes: Routes = [
         children: [
           { path: 'table', component: TableComponent },
           { path: 'table/:tab', component: TableComponent }
+        ]
+      },
+      {
+        path: '',
+        component: TabStepComponent,
+        children: [
+          { path: 'tabone', component: StepOneComponent}
         ]
       }
     ]
