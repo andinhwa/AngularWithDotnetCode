@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabStepComponent implements OnInit {
 
-  constructor() { }
+  a: String;
+  constructor() {
+    this.a = 'teo.com.vn';
+
+  }
 
   ngOnInit() {
   }

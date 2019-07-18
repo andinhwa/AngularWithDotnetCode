@@ -24,7 +24,13 @@ const routes: Routes = [
         children: [
           { path: 'button', component: ButtonComponent },
           { path: 'cards', component: CardsComponent },
-          { path: 'tabone', component: TabStepComponent },
+          {
+            path: '',
+            component: TabStepComponent,
+            children: [
+              { path: 'tabone', component: StepOneComponent}
+            ]
+          }
         ]
       },
       {
@@ -35,13 +41,7 @@ const routes: Routes = [
           { path: 'table/:tab', component: TableComponent }
         ]
       },
-      {
-        path: '',
-        component: TabStepComponent,
-        children: [
-          { path: 'tabone', component: StepOneComponent}
-        ]
-      }
+
     ]
   },
   { path: 'login', component: LoginComponent },
