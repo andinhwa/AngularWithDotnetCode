@@ -75,6 +75,18 @@
         email is required.
       </label>
     </div>
+
+    <!-- <div class="form-group"  formArrayName="checkBoxs">
+      <input type="checkbox" name="checkbox" class="form-control" value="Teo"  formControlName="0"/>
+      <input type="checkbox" name="checkbox" class="form-control" value="Ty"  formControlName="1"/>
+      <input type="checkbox" name="checkbox" class="form-control" value="Meo" formControlName="2"/>
+    </div> -->
+
+    <label formArrayName="checkBoxs" *ngFor="let genre of customerForm.controls.checkBoxs.controls; let i = index">
+      <input type="checkbox" name="check" [formControlName]="i">
+      {{musicPreferences[i].genre}}
+    </label>
+
   </form>
 </div>
 <app-alert></app-alert>

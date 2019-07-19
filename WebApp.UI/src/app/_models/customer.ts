@@ -5,4 +5,5 @@ export class Customer {
   fullNane: string;
   email: string;
   address: string;
+  checkbox: string[];
 }
