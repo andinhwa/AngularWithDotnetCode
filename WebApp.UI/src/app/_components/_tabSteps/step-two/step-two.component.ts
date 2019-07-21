@@ -2,15 +2,17 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AdComponent } from 'src/app/AdComponent';
 
 @Component({
-  selector: 'app-step-one',
-  templateUrl: './step-one.component.html',
-  styleUrls: ['./step-one.component.css']
+  selector: 'app-step-two',
+  templateUrl: './step-two.component.html',
+  styleUrls: ['./step-two.component.css']
 })
-export class StepOneComponent implements OnInit, AdComponent {
+export class StepTwoComponent implements OnInit, AdComponent {
   @Input() data: any;
-  ngOnInit() {
-  }
+  constructor() { }
 
+  ngOnInit() {
+
+  }
   submit() {
     this.data.parent.callback(this.data.name);
   }

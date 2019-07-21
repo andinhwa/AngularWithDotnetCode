@@ -25,11 +25,8 @@ const routes: Routes = [
           { path: 'button', component: ButtonComponent },
           { path: 'cards', component: CardsComponent },
           {
-            path: '',
+            path: 'tabstep',
             component: TabStepComponent,
-            children: [
-              { path: 'tabone', component: StepOneComponent}
-            ]
           }
         ]
       },

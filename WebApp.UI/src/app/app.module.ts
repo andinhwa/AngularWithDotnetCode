@@ -13,7 +13,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppSidebarComponent } from './_layout/app-sidebar/app-sidebar.component';
 import { AppTopbarComponent } from './_layout/app-topbar/app-topbar.component';
 import { AppFooterComponent } from './_layout/app-footer/app-footer.component';
-import { AppComponentComponent, TabStepComponent, StepOneComponent } from './_components';
+import { AppComponentComponent,
+  TabStepComponent,
+  StepOneComponent,
+  StepTwoComponent
+} from './_components';
 import { ButtonComponent } from './_components';
 import { CardsComponent } from './_components';
 import { TableComponent, AddNewCustomerComponent, AppAddonComponent } from './_addons';
@@ -21,6 +25,7 @@ import { AlertComponent } from './_components';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppConfigModule } from './app-config.module';
+import {AdDirective} from './_directive/ad.directive';
 
 import * as $ from 'jquery';
 import * as bootstrap from 'bootstrap';
@@ -42,9 +47,15 @@ import { from } from 'rxjs';
     AlertComponent,
     AddNewCustomerComponent,
     TabStepComponent,
-    StepOneComponent
+    StepOneComponent,
+    StepTwoComponent,
+    AdDirective
   ],
-  entryComponents: [AddNewCustomerComponent],
+  entryComponents: [
+    AddNewCustomerComponent,
+    StepOneComponent,
+    StepTwoComponent
+  ],
   imports: [
     BrowserModule,
     FormsModule,
