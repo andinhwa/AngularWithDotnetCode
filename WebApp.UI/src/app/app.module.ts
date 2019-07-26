@@ -21,7 +21,6 @@ import { AlertComponent } from './_components';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppConfigModule } from './app-config.module';
-import {AdDirective} from './_directive/ad.directive';
 
 import * as $ from 'jquery';
 import * as bootstrap from 'bootstrap';
