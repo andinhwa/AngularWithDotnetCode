@@ -9,8 +9,7 @@ import { CardsComponent } from './_components/cards/cards.component';
 import { AppAddonComponent } from './_addons/app-addon/app-addon.component';
 import { TableComponent } from './_addons/table/table.component';
 import { AuthGuard } from './_Guard';
-import {TabStepComponent, StepOneComponent} from './_components';
-
+import { load } from '@angular/core/src/render3';
 const routes: Routes = [
   {
     path: '',
@@ -24,10 +23,8 @@ const routes: Routes = [
         children: [
           { path: 'button', component: ButtonComponent },
           { path: 'cards', component: CardsComponent },
-          {
-            path: 'tabstep',
-            component: TabStepComponent,
-          }
+          {path: 'tabstep', loadChildren: './module/demo-module/demo-module.module#DemoModuleModule' }
+
         ]
       },
       {

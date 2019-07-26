@@ -1,8 +1,8 @@
 import { Component, OnInit, ComponentFactoryResolver, ViewChild, ViewContainerRef, OnDestroy } from '@angular/core';
-import { AdItem } from 'src/app/_models/AdItem';
+import { AdItem } from '../AdItem';
 import { StepOneComponent } from '../step-one/step-one.component';
-import { AdDirective } from 'src/app/_directive/ad.directive';
-import { AdComponent } from 'src/app/AdComponent';
+import {AdDirective} from '../_directive/ad.directive';
+import { AdComponent } from '../AdComponent';
 import { StepTwoComponent } from '../step-two/step-two.component';
 
 @Component({
@@ -10,6 +10,7 @@ import { StepTwoComponent } from '../step-two/step-two.component';
   templateUrl: './tab-step.component.html',
   styleUrls: ['./tab-step.component.css']
 })
+
 export class TabStepComponent implements OnInit, OnDestroy {
   ads: AdItem[];
   data: { name: 'parent tab' };

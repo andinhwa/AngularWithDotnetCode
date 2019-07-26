@@ -13,11 +13,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppSidebarComponent } from './_layout/app-sidebar/app-sidebar.component';
 import { AppTopbarComponent } from './_layout/app-topbar/app-topbar.component';
 import { AppFooterComponent } from './_layout/app-footer/app-footer.component';
-import { AppComponentComponent,
-  TabStepComponent,
-  StepOneComponent,
-  StepTwoComponent
-} from './_components';
+import { AppComponentComponent } from './_components';
 import { ButtonComponent } from './_components';
 import { CardsComponent } from './_components';
 import { TableComponent, AddNewCustomerComponent, AppAddonComponent } from './_addons';
@@ -45,16 +41,10 @@ import { from } from 'rxjs';
     AppAddonComponent,
     TableComponent,
     AlertComponent,
-    AddNewCustomerComponent,
-    TabStepComponent,
-    StepOneComponent,
-    StepTwoComponent,
-    AdDirective
+    AddNewCustomerComponent
   ],
   entryComponents: [
-    AddNewCustomerComponent,
-    StepOneComponent,
-    StepTwoComponent
+    AddNewCustomerComponent
   ],
   imports: [
     BrowserModule,

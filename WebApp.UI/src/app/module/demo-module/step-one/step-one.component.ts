@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AdComponent } from 'src/app/AdComponent';
+import { AdComponent } from '../AdComponent';
 
 @Component({
   selector: 'app-step-one',
