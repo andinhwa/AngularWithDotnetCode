@@ -24,12 +24,13 @@ export class TabStepComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  callback(data: any) {
+  onSubmit(data: any) {
     if (this.tabIndex < (this.ads.length - 1)) {
       this.tabIndex++;
     } else {
       this.tabIndex = 0;
     }
+
     this.getcomponent();
     console.log(data);
   }
@@ -41,17 +42,17 @@ export class TabStepComponent implements OnInit, OnDestroy {
 
     const viewContainerRef = this.adHost.viewContainerRef;
     viewContainerRef.clear();
-
     const componentRef = viewContainerRef.createComponent(componentFactory);
-    (componentRef.instance as AdComponent).data = step.data;
-
+    const tabComponent = (componentRef.instance as AdComponent);
+    tabComponent.eSubmit.subscribe(data => this.onSubmit(data));
+    tabComponent.data = step.data;
   }
 
   ngOnInit() {
     this.tabIndex = 0;
     this.ads = [
-      new AdItem(StepOneComponent, { name: 'step one', parent: this }),
-      new AdItem(StepTwoComponent, { name: 'step two', parent: this })
+      new AdItem(StepOneComponent, { name: 'step one'}),
+      new AdItem(StepTwoComponent, { name: 'step two'})
     ];
     this.getcomponent();
   }
