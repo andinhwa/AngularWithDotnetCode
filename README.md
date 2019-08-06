@@ -31,3 +31,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 `dotnet ef -p ./WebApp.Core -s ./WebApp.Tools   database update`
 
+## ef
+`git save username `
+`git config credential.helper store`
